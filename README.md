@@ -1,4 +1,4 @@
-# 2018QC-Project-Ab-initial-wavefunction-program
+# 2018QC-Project-Ab-initio-wavefunction-program
 
 ### TODO
 
