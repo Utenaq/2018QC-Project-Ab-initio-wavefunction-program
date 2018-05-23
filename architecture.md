@@ -8,33 +8,61 @@
 
 2. The following basic functions & classes need to be implemented.
 
+2.1. The following functions are for PYTHON
 
-        # max memory to be used
-        # takes  : string, memory specification, like '10 GB'
-        # returns: null
-        QC.set_memory(string mem_spec)
+        @functions
+        IMPLICIT
+            raise: ParamsError, insufficient params, or type assertion failure
+            raise: MaxMemExceeded
+
+
+        # OPTIONAL, max memory to be used
+        set_memory(mem_spec)
+        # takes  :  string,      mem_spec: memory specification, like '10 GB'
+        # returns:  float64,     memory amount, in absolute number.
+        # raises :  ValueError,  unacceptable unit, or any other nonsense.
+
 
         # Z matrix interpreter
-        # takes  : string, geometry specified by Z-matrix, like """
-        O
-        H 1 0.96
-        H 1 0.96 2 104.5
-        """
-        # returns: Geometry
-        QC.geometry(string geometry)
+        create_molecular_with_Z_matrix_string(z_matrix)
+        # takes  :  string,      z_matrix: geometry specified by Z-matrix
+        # returns:  Molecule,    instance of class Molecule
+        # raises :  ValueError,  incorrect format, or any other nonsense
 
-        # evaluates energy, prints all information to file/stdout
-        # takes  :  string, method specification, like 'ccsd(t)/aug-cc-pvdz',
-                    Geometry
-        # returns: float64
-        QC.energy(method, geometry)
-    
+
+        # evaluates single point energy, prints all information to file/stdout
+        energy(method, molecule, restart_file)
+        # takes  :  string,      method: method specification, like 'ccsd(t)/aug-cc-pvdz',
+        #           Molecule,    molecule: molecule to calculate
+        #           FileIO,      restart_file: the file for calculation restart
+        # returns:  float64,     energy
+        #           Wavefunction,array of instance of wavefunctionss
+        # raises :
+
         # options
-        # takes  : dict, other options
-        # returns: null
-        QC.set_options({'reference': 'uhf'})
-    
+        set_global_options(options_dict)
+        # takes  :  dict,        options_dict: options, like {'reference': 'uhf'}
+        # returns:  None
+        # raises :
+
+
         # OPTIONAL, calculates the Hessian
-        # takes  : string, method specification, like 'scf/cc-pvdz'
-        # returns: Array(float64)
-        QC.frequency(method='method', etc.)
+        hessian(method, molecule)
+        # wrappers: frequencies()
+        # takes  :  string,      method: method specification, like 'scf/cc-pvdz'
+        #           Molecule,    molecule: molecule to calculate
+        # returns:  Matrix(float64)
+        # raises :
+
+
+        # OPTIONAL, calculates frequencies
+        @hessian
+        frequencies()
+
+
+
+        #classes
+        [TODO]
+
+
+3.[TODO]
