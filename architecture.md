@@ -60,9 +60,35 @@
         frequencies()
 
 
-
+2.2. The following classes are for PYTHON
         #classes
-        [TODO]
 
 
-3.[TODO]
+        # basic molecule class
+        Molecule
+        # Bases  :  Object
+        # Attribs:
+
+        # Methods:
+
+
+
+
+        # basic wavefunction class
+        Wavefunction
+        # Bases  :  Object
+        # Attribs:
+
+        # Methods:
+
+
+
+
+
+2.3. The following functions are for C++
+
+[TODO]
+
+2.4. The following classes are for C++
+
+[TODO]
