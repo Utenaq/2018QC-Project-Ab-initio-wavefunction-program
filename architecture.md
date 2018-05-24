@@ -93,27 +93,27 @@
         {
             public:
 
-                //Attribs
-                int natom;
-                int charge;
+                // Attribs
+                int number_of_atoms;
+                int total_charge;
                 int \*zvals;
-                double \*\*geom;
+                double \*\*geometry;
                 string point_group;
 
-                //Methods
-                void print_geom();
-                void rotate(double phi);
+                // Methods
+                void print_geometry();
+                void rotate(double q1, double q2, double q3, double q4);
                 void translate(double x, double y, double z);
                 double bond(int atom1, int atom2);
                 double angle(int atom1, int atom2, int atom3);
                 double torsion(int atom1, int atom2, int atom3, int atom4);
 
-
+                // Constructor, Destructor
                 Molecule();
                 ~Molecule();
 
             privite:
-
+                // No private
         };
 
         class Wavefunction
@@ -124,3 +124,8 @@
 
 
         };
+
+
+
+3. units: a.u. for all internal units. When output, the unit must be explicitly
+appended after the number. For input files, use a.u. for now.
