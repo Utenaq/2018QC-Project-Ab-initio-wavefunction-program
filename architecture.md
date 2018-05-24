@@ -11,7 +11,7 @@
 2.1. The following functions are for PYTHON
 
         @functions
-        IMPLICIT
+        @IMPLICIT
             raise: ParamsError, insufficient params, or type assertion failure
             raise: MaxMemExceeded
 
@@ -56,39 +56,71 @@
 
 
         # OPTIONAL, calculates frequencies
-        @hessian
-        frequencies()
+        @frequencies
+        hessian()
 
 
 2.2. The following classes are for PYTHON
-        #classes
 
 
         # basic molecule class
         Molecule
         # Bases  :  Object
-        # Attribs:
-
-        # Methods:
-
-
-
+        # Attribs:  @Cpp_class_Molecule
+        # Methods:  @Cpp_class_Molecule
 
         # basic wavefunction class
         Wavefunction
         # Bases  :  Object
-        # Attribs:
-
-        # Methods:
-
+        # Attribs:  @Cpp_class_Wavefunction
+        # Methods:  @Cpp_class_Wavefunction
 
 
+2.3. [TODO] The following functions are for C++
+
+        # Matrix Eigenvalues
+        eigen()
+        # (just use OpenBLAS)
+
+        # Evaluate integrals
+        one_e_integrals()
+        two_e_integrals()
 
 
-2.3. The following functions are for C++
+2.4. [TODO] The following classes are for C++
 
-[TODO]
+        class Molecule
+        {
+            public:
 
-2.4. The following classes are for C++
+                //Attribs
+                int natom;
+                int charge;
+                int \*zvals;
+                double \*\*geom;
+                string point_group;
 
-[TODO]
+                //Methods
+                void print_geom();
+                void rotate(double phi);
+                void translate(double x, double y, double z);
+                double bond(int atom1, int atom2);
+                double angle(int atom1, int atom2, int atom3);
+                double torsion(int atom1, int atom2, int atom3, int atom4);
+
+
+                Molecule();
+                ~Molecule();
+
+            privite:
+
+        };
+
+        class Wavefunction
+        {
+            public:
+
+                //Attribs
+
+
+        };
