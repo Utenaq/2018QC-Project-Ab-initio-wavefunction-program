@@ -36,7 +36,7 @@
         #           Molecule,    molecule: molecule to calculate
         #           FileIO,      restart_file: the file for calculation restart
         # returns:  float64,     energy
-        #           Wavefunction,array of instance of wavefunctionss
+        #           Wavefunction,array of instance of wavefunctions
         # raises :
 
         # options
