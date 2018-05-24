@@ -82,9 +82,17 @@
         eigen()
         # (just use OpenBLAS)
 
-        # Evaluate integrals
+        # Evaluate
+        nuclear_repulsion_energy()
         one_e_integrals()
         two_e_integrals()
+        orthogonalization_matrix()
+        init_guess()
+        SCF_energy()
+        Fock()
+        density()
+        test_convergence()
+        MP2_energy()
 
 
 2.4. [TODO] The following classes are for C++
