@@ -1,10 +1,6 @@
-def angstrom():
-    """
-    Returns how many angstrom are their in a atomic unit.
-    To convert angstrom to a.u. divide angstrom numbers with this function.
-    """
-    return 0.52917721092
-
+# filename: constants.py
+# Last edited: fieryd 24MAY 1254Z
+# This file is a list of definitions on physical constants used in the program
 
 atomic_number = dict()
 
