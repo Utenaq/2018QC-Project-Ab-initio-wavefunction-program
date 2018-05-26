@@ -229,8 +229,23 @@ appended after the number. For input files, use a.u. for now.
             //   (ij|kl) = (ij|lk) = (ji|kl) = (ji|lk)
             // = (kl|ij) = (lk|ij) = (kl|ji) = (lk|ji)
             // so we only need to store 1/8 of the 4-dimensional tensor
-            // Note: When performing calculation, we recommend that the full
-            // tensor being constructed in memory to facilitate lookups
+
+            // Note: When we have PLENTY of memory, we should consider construct
+            // the full 4-dimensional tensor so as to facilitate lookups (uses
+            // 8x more memory)
+
+            // if not, we can use the formula  
+            //      a = i * (i + 1) + j;
+            //      b = k * (k + 1) + l;
+            // to get (ij|lk) from the 2-dimensional matrix constructed as a
+            // lower-triangle matrix following the rules that
+            //      i > j && k > l && a > b
+            // this will use 2x more memory
+
+            // or lastly, if we get really very little mem, we can just use
+            // linear list to store the ERIs, according to the sequence
+            // specified below
+
                 1     1     1     1    (11|11)
                 2     1     1     1    (21|11)
                 2     2     1     1    (22|11)
@@ -241,4 +256,6 @@ appended after the number. For input files, use a.u. for now.
                 ...
 
             HF Energy
+                
+
             molecular orbitals ...
