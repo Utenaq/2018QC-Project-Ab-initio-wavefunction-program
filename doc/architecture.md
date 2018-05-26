@@ -153,7 +153,15 @@ appended after the number. For input files, use a.u. for now.
                 [Z value of atom N] [X of atom N]   [Y of atom N]   [Z of atom N]
             Z matrix: (unit: a.u.)
                 We just use the standard form of Z matrices
+            AO Basis Overlaps
+                1   1   S_{11}
+                2   1   S_{21}
+                2   2   S_{22}
+                3   1   S_{31}
+                ...
 
 5. Output formats
 
-        [TODO]
+        v0.1
+            HF Energy
+            molecular orbitals ...
