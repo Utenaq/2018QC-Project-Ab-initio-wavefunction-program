@@ -5,6 +5,8 @@
 
 #include "../include/molecule.h"
 
+int verbosity;
+
 int max_iter;
 int max_memory;
 
@@ -30,7 +32,9 @@ Matrix initialize_guess(Matrix init_guess);
 // calculate density matrix
 Matrix calc_density_matrix(Matrix fock_matrix, Matrix core_hamiltonian, Matrix S_ortho);
 
-double calc_energy_elec(Matrix density_matrix, Matrix fock_matrix, Matrix core_hamiltonian);
+// calculate MO energies
+double *calc_energies_elec(Matrix density_matrix, Matrix fock_matrix, Matrix core_hamiltonian);
+double *calc_energies_tot(double *energy_elec, double energy_nuclear);
 
 // if we have little memory, save ERIs as matrix. if we have more, save it as
 // 4-dimensional tensor.
@@ -42,7 +46,7 @@ bool test_convergence(double etot_previous, double etot_current);
 
 // if convergence achived, stop the iteration and print output
 // if in verbose mode, print information regardless of convergence or not
-void print_output(bool convergence, bool verbosity);
+void print_output(bool convergence, int verbosity);
 
 // if the iteration process have exceeded the max iteration limit, then stop
 // and print failure message
