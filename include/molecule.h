@@ -20,6 +20,11 @@ class Molecule
         double torsion(int atom1, int atom2, int atom3, int atom4);
 
         // Constructor, Destructor
+        // Overloading Molecule
         Molecule(int natom, int q, int *z, int **geom);
+        Molecule(const char *z_matrix, int q);
+        Molecule(const char *z_matrix);
+        Molecule(const char *cartesian_filename, int q);
+        Molecule(const char *cartesian_filename);
         ~Molecule();
 };

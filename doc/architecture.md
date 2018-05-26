@@ -98,31 +98,9 @@
 2.4. [TODO] The following classes are for C++
 
         class Molecule
-        {
-            public:
-
-                // Attribs
-                int number_of_atoms;
-                int total_charge;
-                int \*zvals;
-                double \*\*geometry;
-                string point_group;
-
-                // Methods
-                void print_geometry();
-                void rotate(double q1, double q2, double q3, double q4);
-                void translate(double x, double y, double z);
-                double bond(int atom1, int atom2);
-                double angle(int atom1, int atom2, int atom3);
-                double torsion(int atom1, int atom2, int atom3, int atom4);
-
-                // Constructor, Destructor
-                Molecule();
-                ~Molecule();
-
-            privite:
-                // No private
-        };
+        Construct: natom, total_charge, zvals, geom
+        Construct: from_file, total_charge
+        Construct: from_file (total_charge = 0)
 
         class Wavefunction
         {

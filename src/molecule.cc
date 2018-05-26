@@ -29,6 +29,22 @@ Molecule::Molecule(int natom, int q, int *z, int **geom) {
 
 }
 
+Molecule(const char *z_matrix, int q) {
+
+}
+
+Molecule(const char *z_matrix) {
+
+}
+
+Molecule::Molecule(const char *filename, int q) {
+
+}
+
+Molecule::Molecule(const char *filename) {
+
+}
+
 Molecule::~Molecule()
 {
     // free everything
