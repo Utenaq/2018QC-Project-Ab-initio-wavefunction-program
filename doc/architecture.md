@@ -282,5 +282,11 @@ appended after the number. For input files, use a.u. for now.
                 just output the C matrix
 
             // results, verbose mode
+            // output a table for debugging
 
-            Iter        HF Energy
+            Iter#        E(elec)        E(tot)       Delta(E)       RMS
+            1
+            2
+            3
+            4
+            ...
