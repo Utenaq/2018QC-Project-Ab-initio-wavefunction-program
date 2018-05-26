@@ -25,7 +25,7 @@ double torsion(int atom1, int atom2, int atom3, int atom4){
 }
 
 
-Molecule::Molecule(int natom, int q, int *z, int **geom) {
+Molecule::Molecule(int natom, int q, int *z, Point* geom) {
 
 }
 
@@ -37,11 +37,49 @@ Molecule::Molecule(const char *z_matrix) {
 
 }
 
-Molecule::Molecule(const char *filename, int q) {
-
+// Load a molecule with give charge
+Molecule::Molecule(const char *cartesian_filename, int q) {
+		
+	if (q < 0){
+		// variable check: otherwise you can raise an error
+	}
+	total_charge = abs(q);
+	
+	FILE* fHandle = fopen(cartesian_filename, "r");
+	if (fHandle == NULL){
+		// or throw an exception 
+		fprintf(stderr, "Cannot open input file.\n");
+	}
+	
+	fscanf(fHandle, "%d", &(number_of_atoms));
+	
+	geometry = new Point[number_of_atoms];
+	zvals = new int[number_of_atoms];
+	
+	for(int i = 0; i < number_of_atoms; ++i)
+		fscanf(fHandle, "%d %lf %lf %lf", zvals+i, &(geometry[i].x), &(geometry[i].y), &(geometry[i].z));
+	
+	fclose(fHandle);
+	
 }
 
-Molecule::Molecule(const char *filename) {
+Molecule::Molecule(const char *cartesian_filename) {
+	
+	FILE* fHandle = fopen(cartesian_filename, "r");
+	if (fHandle == NULL){
+		// or throw an exception 
+		fprintf(stderr, "Cannot open input file.\n");
+	}
+	
+	fscanf(fHandle, "%d", &(number_of_atoms));
+	
+	geometry = new Point[number_of_atoms];
+	zvals = new int[number_of_atoms];
+	
+	for(int i = 0; i < number_of_atoms; ++i)
+		fscanf(fHandle, "%d %lf %lf %lf", zvals+i, &(geometry[i].x), &(geometry[i].y), &(geometry[i].z));
+	
+	fclose(fHandle);
 
 }
 
@@ -51,7 +89,7 @@ Molecule::~Molecule()
 
     delete[] zvals;
 
-    for(int i=0; i < number_of_atoms; i++){
+    for(int i = 0; i < number_of_atoms; i++){
         delete[] geometry[i];
     }
 
