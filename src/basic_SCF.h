@@ -21,4 +21,7 @@ double calc_energy_elec(Matrix density_matrix, Matrix fock_matrix, Matrix core_h
 Matrix calc_fock_matrix(Matrix core_hamiltonian, Matrix density_matrix, Matrix ERI);
 Matrix calc_fock_matrix(Matrix core_hamiltonian, Matrix density_matrix, Tensor ERI);
 
+double test_convergence(double etot_previous, double etot_current);
+
+
 #endif
