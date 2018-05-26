@@ -1,5 +1,9 @@
 #include <string>
 
+typedef struct Tpoint{
+	double x,y,z;
+} Point;
+
 class Molecule
 {
     public:
@@ -8,7 +12,7 @@ class Molecule
         int number_of_atoms;
         int total_charge;
         int *zvals;
-        double **geometry;
+        Point *geometry;
         string point_group;
 
         // Methods
@@ -21,10 +25,11 @@ class Molecule
 
         // Constructor, Destructor
         // Overloading Molecule
-        Molecule(int natom, int q, int *z, int **geom);
+        Molecule(int natom, int q, int *z, Point* geom);
         Molecule(const char *z_matrix, int q);
         Molecule(const char *z_matrix);
         Molecule(const char *cartesian_filename, int q);
         Molecule(const char *cartesian_filename);
         ~Molecule();
 };
+
