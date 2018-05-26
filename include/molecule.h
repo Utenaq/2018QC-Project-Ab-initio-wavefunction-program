@@ -1,3 +1,6 @@
+#ifndef _QC_include_molecule_h_ //header guard
+#define _QC_include_molecule_h_
+
 #include <string>
 
 typedef struct Tpoint{
@@ -33,3 +36,4 @@ class Molecule
         ~Molecule();
 };
 
+#endif //header guard
