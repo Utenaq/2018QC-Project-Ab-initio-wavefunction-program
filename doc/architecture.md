@@ -159,72 +159,30 @@ appended after the number. For input files, use a.u. for now.
             // Single electron integrals
 
             S (AO Basis Overlaps)
-                1   1   S_{11}
-                2   1   S_{21}
-                2   2   S_{22}
-                3   1   S_{31}
+                1   1   [S_{11}]
+                2   1   [S_{21}]
+                2   2   [S_{22}]
+                3   1   [S_{31}]
                 ...
 
             T (Kinetic Energy)
-                1   1   T_{11}
-                2   1   T_{21}
-                2   2   T_{22}
-                3   1   T_{31}
+                1   1   [T_{11}]
+                2   1   [T_{21}]
+                2   2   [T_{22}]
+                3   1   [T_{31}]
                 ...
 
             V (N-E attraction integrals)
-                1   1   V_{11}
-                2   1   V_{21}
-                2   2   V_{22}
-                3   1   V_{31}
+                1   1   [V_{11}]
+                2   1   [V_{21}]
+                2   2   [V_{22}]
+                3   1   [V_{31}]
                 ...
 
             // Two electron integrals
 
             ERI (electron repulsion integrals)
-            // Note: the ERIs obey the symmetric rule as
-            //   (ij|kl) = (ij|lk) = (ji|kl) = (ji|lk)
-            // = (kl|ij) = (lk|ij) = (kl|ji) = (lk|ji)
-            // so we only need to store 1/8 of the 4-dimensional tensor
-            // Note: When performing calculation, we recommend that the full
-            // tensor being constructed in memory to facilitate lookups
-                1     1     1     1    (11|11)
-                2     1     1     1    (21|11)
-                2     2     1     1    (22|11)
-                2     1     2     1    (21|21)
-                2     2     2     1    (22|21)
-                2     2     2     2    (22|22)
-                3     3     1     1    (33|11)
-                ...
 
-
-5. Output formats
-
-        v0.1
-            S (AO Basis Overlaps)
-                1   1   S_{11}
-                2   1   S_{21}
-                2   2   S_{22}
-                3   1   S_{31}
-                ...
-
-            T (Kinetic Energy)
-                1   1   T_{11}
-                2   1   T_{21}
-                2   2   T_{22}
-                3   1   T_{31}
-                ...
-
-            V (N-E attraction integrals)
-                1   1   V_{11}
-                2   1   V_{21}
-                2   2   V_{22}
-                3   1   V_{31}
-                ...
-
-            // Two electron integrals
-
-            ERI (electron repulsion integrals)
             // Note: the ERIs obey the symmetric rule as
             //   (ij|kl) = (ij|lk) = (ji|kl) = (ji|lk)
             // = (kl|ij) = (lk|ij) = (kl|ji) = (lk|ji)
@@ -246,16 +204,83 @@ appended after the number. For input files, use a.u. for now.
             // linear list to store the ERIs, according to the sequence
             // specified below
 
-                1     1     1     1    (11|11)
-                2     1     1     1    (21|11)
-                2     2     1     1    (22|11)
-                2     1     2     1    (21|21)
-                2     2     2     1    (22|21)
-                2     2     2     2    (22|22)
-                3     3     1     1    (33|11)
+                1     1     1     1    [(11|11)]
+                2     1     1     1    [(21|11)]
+                2     2     1     1    [(22|11)]
+                2     1     2     1    [(21|21)]
+                2     2     2     1    [(22|21)]
+                2     2     2     2    [(22|22)]
+                3     3     1     1    [(33|11)]
                 ...
 
-            HF Energy
-                
+            initial_guess (initial guess of the Fock matrix)
+            // if not otherwise specified, initial_guess is the same as H_{core}
+            // if the user wish to use another init guess, then this must also
+            // be inputted
+                1   1   [F0_{11}]
+                2   1   [F0_{21}]
+                2   2   [F0_{22}]
+                3   1   [F0_{31}]
+                ...
 
-            molecular orbitals ...
+
+5. Output formats
+
+        v0.1
+
+            // Single electron integrals
+
+            S (AO Basis Overlaps)
+                1   1   [S_{11}]
+                2   1   [S_{21}]
+                2   2   [S_{22}]
+                3   1   [S_{31}]
+                ...
+
+            T (Kinetic Energy)
+                1   1   [T_{11}]
+                2   1   [T_{21}]
+                2   2   [T_{22}]
+                3   1   [T_{31}]
+                ...
+
+            V (N-E attraction integrals)
+                1   1   [V_{11}]
+                2   1   [V_{21}]
+                2   2   [V_{22}]
+                3   1   [V_{31}]
+                ...
+
+            // Two electron integrals
+
+            ERI (electron repulsion integrals)
+                1     1     1     1    [(11|11)]
+                2     1     1     1    [(21|11)]
+                2     2     1     1    [(22|11)]
+                2     1     2     1    [(21|21)]
+                2     2     2     1    [(22|21)]
+                2     2     2     2    [(22|22)]
+                3     3     1     1    [(33|11)]
+                ...
+
+            // results
+
+            E(elec):
+                0   [E(elec)]
+                1   [E(elec)]
+                ...
+
+            E(tot):
+                0   [E(tot)]
+                1   [E(tot)]
+                ...
+
+            Total Iteration Times:  [total_iteration_times]
+            Last Iteration Delta:   [last_iteration_delta]
+
+            molecular orbitals
+                just output the C matrix
+
+            // results, verbose mode
+
+            Iter        HF Energy
