@@ -1,7 +1,12 @@
 #ifndef _QC_include_basic_SCF_h_ //header guard
 #define _QC_include_basic_SCF_h_
 
+#include <string>
+
 #include "../include/molecule.h"
+
+int max_iter;
+int max_memory;
 
 // read single electron integrals from files
 Matrix integrals_preprocess_S(const char *S_filename);
@@ -32,8 +37,15 @@ double calc_energy_elec(Matrix density_matrix, Matrix fock_matrix, Matrix core_h
 Matrix calc_fock_matrix(Matrix core_hamiltonian, Matrix density_matrix, Matrix ERI);
 Matrix calc_fock_matrix(Matrix core_hamiltonian, Matrix density_matrix, Tensor ERI);
 
-double test_convergence(double etot_previous, double etot_current);
+// at end of each iteration, test if convergence is achived
+bool test_convergence(double etot_previous, double etot_current);
 
-void print_output(bool verbosity);
+// if convergence achived, stop the iteration and print output
+// if in verbose mode, print information regardless of convergence or not
+void print_output(bool convergence, bool verbosity);
+
+// if the iteration process have exceeded the max iteration limit, then stop
+// and print failure message
+void print_failure(string reason);
 
 #endif // header guard
