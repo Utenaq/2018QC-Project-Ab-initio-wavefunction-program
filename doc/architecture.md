@@ -137,3 +137,17 @@
 
 3. units: a.u. for all internal units. When output, the unit must be explicitly
 appended after the number. For input files, use a.u. for now.
+
+4. Input formats
+
+        v0.1
+            Cartesian: (unit: a.u.)
+                [Number of atoms]
+                [Z value of atom 1] [X of atom 1]   [Y of atom 1]   [Z of atom 1]
+                [Z value of atom 2] [X of atom 2]   [Y of atom 2]   [Z of atom 2]
+                ...
+                [Z value of atom N] [X of atom N]   [Y of atom N]   [Z of atom N]
+
+5. Output formats
+
+        [TODO]
