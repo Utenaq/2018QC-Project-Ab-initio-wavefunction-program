@@ -98,9 +98,35 @@
 2.4. [TODO] The following classes are for C++
 
         class Molecule
-        Construct: natom, total_charge, zvals, geom
-        Construct: from_file, total_charge
-        Construct: from_file (total_charge = 0)
+        Construct:  natom, total_charge, zvals, geom
+                    from_z_matrix, total_charge
+                    from_z_matrix (total_charge = 0)
+                    from_file, total_charge
+                    from_file (total_charge = 0)
+
+        Attribute:  int number_of_atoms;
+                    int total_charge;
+                    int \*zvals;
+                    double \*\*geometry;
+                    string point_group;
+
+        Mothods:    // print geometry in plain text
+                    void print_geometry();
+
+                    // rotate the molecule with a set of quaternions
+                    void rotate(double q1, double q2, double q3, double q4);
+
+                    // translate the molecule with a vector
+                    void translate(double x, double y, double z);
+
+                    // measure the bondlength between 2 atoms
+                    double bondlength(int atom1, int atom2);
+
+                    // measure the angle between two bond
+                    double angle(int atom1, int atom2, int atom3);
+
+                    // measure the torsion (dihedral angle)
+                    double torsion(int atom1, int atom2, int atom3, int atom4);
 
         class Wavefunction
         {
@@ -125,6 +151,8 @@ appended after the number. For input files, use a.u. for now.
                 [Z value of atom 2] [X of atom 2]   [Y of atom 2]   [Z of atom 2]
                 ...
                 [Z value of atom N] [X of atom N]   [Y of atom N]   [Z of atom N]
+            Z matrix: (unit: a.u.)
+                We just use the standard form of Z matrices
 
 5. Output formats
 
