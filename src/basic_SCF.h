@@ -42,7 +42,7 @@ Matrix calc_fock_matrix(Matrix core_hamiltonian, Matrix density_matrix, Matrix E
 Matrix calc_fock_matrix(Matrix core_hamiltonian, Matrix density_matrix, Tensor ERI);
 
 // at end of each iteration, test if convergence is achived
-bool test_convergence(double etot_previous, double etot_current);
+bool test_convergence_Delta(double e_previous, double e_current);
 
 // if convergence achived, stop the iteration and print output
 // if in verbose mode, print information regardless of convergence or not
