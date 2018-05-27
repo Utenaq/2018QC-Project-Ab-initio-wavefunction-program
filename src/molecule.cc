@@ -1,4 +1,5 @@
 #include "../include/molecule.h"
+#include "../include/qcmath.h"
 
 void print_geometry(){
 
@@ -13,11 +14,18 @@ void translate(double x, double y, double z){
 }
 
 double bondlength(int atom1, int atom2){
+	
+	return (geometry[atom1] - geometry[atom2]).modulus();
 
 }
 
 double angle(int atom1, int atom2, int atom3){
-
+	
+	Point _v = geometry[atom1] - geometry[atom2];
+	Point _u = geometry[atom2] - geometry[atom3];
+	
+	return acos((_v*_u)/(_v.modulus()*_u.modulus()))*180/PI;
+	
 }
 
 double torsion(int atom1, int atom2, int atom3, int atom4){
@@ -26,7 +34,12 @@ double torsion(int atom1, int atom2, int atom3, int atom4){
 
 
 Molecule::Molecule(int natom, int q, int *z, Point* geom) {
-
+	
+	this->number_of_atoms = natom;
+	this->total_charge = q;
+	this->zvals = z;
+	this->geometry = geom;
+	
 }
 
 Molecule::Molecule(const char *z_matrix, int q) {

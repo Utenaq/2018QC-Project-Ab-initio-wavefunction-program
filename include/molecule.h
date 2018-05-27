@@ -2,10 +2,8 @@
 #define _QC_include_molecule_h_
 
 #include <string>
+#include "point.h"
 
-typedef struct Tpoint{
-	double x,y,z;
-} Point;
 
 class Molecule
 {
