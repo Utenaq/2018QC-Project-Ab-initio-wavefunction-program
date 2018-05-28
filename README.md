@@ -3,14 +3,22 @@
 ### Current Concerns
 
 - [ ] Finish the codes in `src\molecule.cc` 
+- [ ] Finish the codes in `src\basic_SCF.cc` 
+- [ ] Define integration library and BasisSet classes 
 - [ ] Update makefiles
-- [ ] Define functions in H-F calculation
+- [ ] Write documents, reformat comments to make them compatible with Doxygen / Sphinx
 
 ### TODO
 
-- [x] Define input file formats
-- [ ] Define output file formats
+- [ ] Define more sophisticated input file formats
+- [ ] Define more sophisticated output file formats
 - [ ] Automatic testing scripts
 - [x] Constants and default parameters lists
 - [ ] (Compatibility) Gaussian input files (.gjf) parser
 - [ ] main program
+
+### Done
+
+- [x] Define functions in H-F calculation
+- [x] Define input file formats
+- [x] Define output file formats
