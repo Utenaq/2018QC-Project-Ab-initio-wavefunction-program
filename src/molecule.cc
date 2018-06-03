@@ -1,3 +1,8 @@
+/* To anyone who implement this class,
+ * PLEASE FIRST REFER TO THE HEADERS, to check the definitions
+ * of the CLASS Point.
+ */
+
 #include "../include/molecule.h"
 #include "../include/qcmath.h"
 
