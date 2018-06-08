@@ -1,0 +1,128 @@
+========== task ID: Title Card Required ==========
+the input  file : ../test/H.gjf
+the output file : ../test/H.log
+the settings    : # sp hf/3-3g
+(  Q  ,  S  )   : 0,     2
+with Natom	   : 1
+with Nelec	   : 1
+with N_set	   : 1
+
+IDmap:  1  0
+
+
+the Geometry of ../test/H shows as follow:
+H         0.00000000    0.00000000    0.00000000
+
+
+the Basis of ../test/H shows as follow:
+the shell of H :
+    shell of 1 S
+        0.15432897    3.42525091
+        0.53532814    0.62391373
+        0.44463454    0.16885540
+the AU position is:
+H         0.00000000    0.00000000    0.00000000
+
+the Z-number    is:    1
+
+
+
+Inte   S_AO: 
+0.99999999
+
+Inte   H_AO: 
+-0.46658185
+
+Inte ERI_AO: 
+0.77460593
+
+test C_MO
+1.00000000
+
+test C_AO
+1.00000000
+
+test S_MO : C^ * S * C
+1.00000000
+
+test F_MO : C^ * F * C
+-0.46658185
+
+test G_MO
+0.00000000
+
+test J_MO
+0.00000000
+
+test K_MO
+0.00000000
+
+test H_MO
+-0.46658185
+
+Density P
+1.00000001
+
+Energy -0.93316370    Convergence: 0.93316370
+
+######################### loop 1 ##########################
+test C_MO
+1.00000000
+
+test C_AO
+1.00000000
+
+test S_MO : C^ * S * C
+1.00000000
+
+test F_MO : C^ * F * C
+0.30802409
+
+test G_MO
+0.77460594
+
+test J_MO
+0.77460594
+
+test K_MO
+0.77460594
+
+test H_MO
+-0.46658185
+
+Density P
+1.00000001
+
+Energy -0.15855776    Convergence: 0.15855776
+
+######################### loop 2 ##########################
+test C_MO
+1.00000000
+
+test C_AO
+1.00000000
+
+test S_MO : C^ * S * C
+1.00000000
+
+test F_MO : C^ * F * C
+0.30802409
+
+test G_MO
+0.77460594
+
+test J_MO
+0.77460594
+
+test K_MO
+0.77460594
+
+test H_MO
+-0.46658185
+
+Density P
+1.00000001
+
+Energy -0.15855776    Convergence: 0.00000000
+
+#########################  DONE  ##########################

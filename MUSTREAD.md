@@ -25,23 +25,48 @@ with the .gjf format).
 the closed shell of s type Hatree-Fock calculation is fine. But it can not treat with open shell RHF equation 
 now or UHF equation. Later will add them.  
 	    
-		|test   |result                     | remarks                                           |  
-		|-------|---------------------------|---------------------------------------------------|  
-		| H2    | consistent with Gauss     | closed-shell RHF works well                       |  
-		| HeH+  | consistent with Gauss     | closed-shell RHF works well                       |  
-		| H     | incorrect                 | open-shell RHF / UHF needed[^]                    |  
-		| CH4   | (no result)               | integration fucntion of s-p/p-p type is needed    |  
-		| H4    | incorrect                 | maybe convergence/degenerate problem[^]           |  
-	    
-[^]: the test of H, is not correct.(though we not we just diagonize the H matrix to obtain the correct result, but
- the RHF equation of closed shell is not fit to treat it. It's need open-shell RHF SCF method.)  
-[^]: the test of H4, has convergence problem with oscillation ! It seems that it quite need DIIS to help it to
- obtain a correct result.(or to say, if there are degenerate orbitals in the molecule? So the occupation of orbitals should be treat more carefully! P.S., according to Jahn-Teller theorem, non-linear molecule of some symmetry must be degenerate.)  
+		
+		// you can run the following command under ./src
+		
+		/*
+		list of commands of some test examples
+		
+		| commands                          | what the procedure does                                       |
+		|-----------------------------------|---------------------------------------------------------------|
+		| ./main -h					        | get help information                                          |
+		| ./main -d                         | run HeH+ default test. (see details in ../test/HeH.gjf)       |
+		| ./main -f ../test/HeH.gjf         | run HeH+ test. (see details in ../test/HeH.gjf)               |
+		| ./main -f ../test/H2.gjf          | run H2 test. (see details in ../test/H2.gjf)                  |
+		| ./main -f ../test/H.gjf           | run H test. (see details in ../test/H.gjf)                    |
+		| ./main -f ../test/H4_D4.gjf       | run H4 with D4 symmetry (see details in ../test/H4_D4.gjf)    |
+		| ./main -f ../test/H4_nosym.gif    | run H4 without symmetry (see details in ../test/H4_nosym.gjf) |
+		
+		
+		list of results
+			    
+		|test   |result                     | remarks                                                       |  
+		|-------|---------------------------|---------------------------------------------------------------|  
+		| H2    | consistent with Gauss     | closed-shell RHF works well                                   |  
+		| HeH+  | consistent with Gauss     | closed-shell RHF works well                                   |  
+		| H     | incorrect                 | open-shell RHF / UHF needed[^a]                                |  
+		| CH4   | (no result)               | integration fucntion of s-p/p-p type is needed                |  
+		| H4    | incorrect                 | open shell & degenerate problem[^b]                            |  
+		
+		
+		[^a]: the test of H, is not correct.(though we not we just diagonize the H matrix to obtain the correct 
+		result, but the RHF equation of closed shell is not fit to treat it. It's need open-shell RHF SCF method.)  
+		[^b]: the test of H4, has convergence problem with oscillation ! It is not a reason to need DIIS, but a 
+		degenerate problem.(or to say, there are degenerate orbitals in the molecule (H4) ! So the occupation of 
+		orbitals should be treat more carefully! P.S., according to Jahn-Teller theorem, non-linear molecule of 
+		some symmetry must be degenerate, this means the H4 molecule of D4 symmetry must be openshell and 
+		degenegrate!). If we distory D4 symmetry to calculate H4 again, we will find it meets convergence!  
+		
+		*/ 
 
 
   
 # files structure
-## new structure (now updating)
+## new structure  
 new structure with few files, mainly contains six files, and move them a copy to tyro directory now. From them,
  it's easy to understand how does this procedure work!  
 #### basic_Const.h
@@ -52,42 +77,56 @@ just as the old file structure.
 
 #### basic_Tools.h
 just as the old file structure, mainly process the strings.  
+>>
 * _tempalate \<class T\> int getArrayLen(T& array)_  
 * _string& trim(string &s)_ 
 * _string& replace\_recursive(string& str, const string& old\_value, const string& new\_value)_  
 * _string& replace\_distinct(string& str, const string& old\_value, const string& new\_value)_  
-
+  
+  
 #### basic_Global.h
-all modeling class of Heisenberg are put into this file:  
+all modeling class of the program are put into this file:  
 here defines:
 * class Point  
 > __with members__  
+>>
 _string name_  
 _double x_  
 _double y_  
 _double z_  
+  
+  
 > __with methods__  
+>>
 _double norm()_  
 _double norm2()_  
 _Point ref\_Point(Point& A)_  
 _double ref\_norm(Point A)_  
 _double ref\_norm2(Point A)_  
 _friend double dist\_AB(Point A, Point B)_  
-_friend double dist\_AB2(Point A, Point B)_
+_friend double dist\_AB2(Point A, Point B)_  
+  
+  
 > __with operators__  
+>>
 _+_  
 _-_  
 _*_  
 _*_  
 _<<_  
   
-* class Orbital: inherit Point  
+  
+* class Orbital: inherit from Point  
 > __extra members__  
+>>
 _int L_  
 _int M_  
 _int N_  
 _double alpha_  
+  
+  
 > __extra methods__  
+>>
 _int set\_Alpha(double aa)_  
 _int set\_LMN(int ll,int mm, int nn)_  
 _int set\_XYZ(double xx, double yy, double zz)_  
@@ -98,10 +137,13 @@ _int get\_XYZ(double& xx, double& yy, double& zz)_
 _int conv\_AUnit()_  
 _double normGTO()_  
 _double normGTO( double a)_  
+  
+  
 > __with operators__  
-
+  
 * class Orbital_cgto: inherit from Orbital  
 > __extra members__  
+>>
 _int cn_  
 the number of (Gauss) Orbital in this contracted GTO.  
 _int* coeffs_  
@@ -110,7 +152,10 @@ _int* alphas_
 list of exponents.(to be abandoned)  
 _Orbital* gtos_  
 list of Orbital objects.  
+  
+  
 > __extra/overload methods__  
+>>
 _int set\_Cgto(int num)_  
 _int get\_CA(int idx, double& cc, double& aa)_  
 _int set\_LMN(int ll,int mm, int nn)_  
@@ -119,10 +164,13 @@ _int set\_XYZ(Point P)_
 _int conv\_AUnit()_  
 _int get\_BohrL()_  
 _double normGTO(int k)_  
+  
+  
 > __with operators__  
 
 * class Atom: inherit from Point  
 > __extra members__  
+>>
 _int znum_   
 z-number of the atom.  
 _double mass_  
@@ -133,7 +181,10 @@ _int indx_
 _int frag_  
 _int ncgto_  
 _Orbital\_cgto* cgto_  
+  
+  
 > __with methods__  
+>>
 _Point& get\_Point()_
 _int get\_Point(Point& P)_  
 _int read\_Atom(string line)_  
@@ -142,20 +193,29 @@ _int set\_Basis(string my__bname, int mysplit, int mynumcs[], int myidxcs[])_
 _int set\_Basisspace(int split, int numcs[], int idxcs[])_  
 _int read\_Basis( fstream& input)_  
 _int conv\_AUnit()_  
+  
+  
 > __with operators__  
+>>
 _<<_  
+  
+  
 
 * class Molecule: inherit from Atom  
 > __extra members__  
+>>
 _int Natom_  
 _int iatom_  
 _Atom* atoms_  
+  
+  
 > __extra methods__  
 (none)  
 > __with operators__  
 (none)  
 * class System: inherit from Molecule  
 > __extra members__  
+>>
 _int Nmol_  
 _int imol_  
 _Molecule moles_  
@@ -165,7 +225,10 @@ _int split_
 _int* numcs_  
 _int* idxcs_  
 _int* idmap_  
+  
+  
 > __extra/overload methods__  
+>>
 _int set\_Natom(int num)_  
 _int read\_Atom(string line)_  
 _int set\_Basis(string my\_bname)_  
@@ -174,11 +237,16 @@ _Orbital\_cgto& OrbC(int &idx)_
 _int count\_Znum()_  
 _int conv\_AUnit()_  
 _int solve\_Top(string line)_  
-> __with operators__  
-_<<_  
-_\[\]_
   
-	    
+  
+> __with operators__  
+>>
+_<<_  
+_\[\]_  
+  
+  
+#### illustration of basic_Global.h
+			    
 			#################################################################################  
 			#                                                                               #  
 			#       [ note: ----- inherit, ===== list, =-=-= inherit & list ]               #  
@@ -237,7 +305,7 @@ _int Taskparser(string term)_
 a function analyize a line-string, is the job parser!  
 
 > __with overload operator__  
-_<<_. 
+_<<_  
 
 #### basic_Integral.h  
 the integration function. new type of s-p/p-p integration method add in the annotation block (the V & ERI of
@@ -255,7 +323,7 @@ _double integral\_V\_sstype( 	Orbital\_cgto& cgto1,  Orbital\_cgto& cgto2, Atom&
 #### basic_SCF.h
 the self-consistent field iteration procedure.  
 * class SCFer  
-> __with members__
+> __with members__  
 _ofstream report_   
 _HTask* tasklink_  
 _System* SYSlink_  
