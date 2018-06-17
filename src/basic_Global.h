@@ -129,6 +129,24 @@ using namespace std;
 			P.z = this->z*a;
 			return  P;
 		}
+		
+		Point operator*(const double& a)
+		{
+			Point P = Point();
+			P.x = this->x*a;
+			P.y = this->y*a;
+			P.z = this->z*a;
+			return  P;
+		}
+		
+		Point operator/(const double& a)
+		{
+			Point P = Point();
+			P.x = this->x/a;
+			P.y = this->y/a;
+			P.z = this->z/a;
+			return  P;
+		}
 	
 		// inner product
 		double operator*(const Point& Pa)

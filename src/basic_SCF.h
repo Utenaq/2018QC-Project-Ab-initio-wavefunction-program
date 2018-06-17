@@ -123,9 +123,11 @@ class SCFer
 		this->report << *(this->tasklink) << endl;
 		this->calc_SHERI(this->tasklink->Sys, this->eigen_S, this->eigen_H, this->eigen_ERI);
 		this->calc_XY();
+		// cout << this->eigen_X << endl;
+		
 		this->guess_P();
 		
-		while( this->do_loop && cnt<128)
+		while( this->do_loop && cnt<32)
 		{	
 			E_old = this->E;
 			cout << "######################### loop " << cnt+1 << " ##########################" << endl;
@@ -157,23 +159,29 @@ int SCFer::calc_SHERI(System &SYS, MatrixXd &S, MatrixXd &H, Tensor4D &ERI)
 	{
 		for(int m2=m1; m2<SYS.Nbasis; m2++)
 		{
-			S(m1, m2) = integral_S_sstype(SYS[m1], SYS[m2]);
+			//S(m1, m2) = integral_S_sstype(SYS[m1], SYS[m2]);
+			S(m1, m2) = IntecGTO_S(SYS[m1], SYS[m2]);
 			if(m1!=m2) S(m2, m1) = S(m1, m2);
 			fS << m1 << " " << m2 << " "<< S(m1, m2) << endl << endl;
 			H(m1, m2) = integral_T_sstype( SYS[m1], SYS[m2] );
+			//H(m1, m2) = IntecGTO_T(SYS[m1], SYS[m2]);
+			
 			for(int k=1; k<= SYS.Natom; k++)
 			{
 				H(m1, m2) += integral_V_sstype(SYS[m1], SYS[m2], SYS.atoms[k]);
+				//H(m1, m2) += IntecGTO_V(SYS[m1], SYS[m2], SYS.atoms[k]);
 			}
 			if(m1!=m2) H(m2, m1) = H(m1, m2);
+			fH << m1 << " " << m2 << " "<< H(m1, m2) << endl << endl;
+			
 			for(int m3=0; m3<SYS.Nbasis; m3++)
 			{
 				for(int m4=m3; m4<SYS.Nbasis; m4++)
 				{
 					if(m2*(m2+1)+2*m1 <= m4*(m4+1)+2*m3)
 					{
-						ERI( m1, m2, m3, m4)
-						= integral_ERI_sstype( SYS[m1], SYS[m2], SYS[m3], SYS[m4] );
+						ERI( m1, m2, m3, m4) = integral_ERI_sstype( SYS[m1], SYS[m2], SYS[m3], SYS[m4] );
+						//ERI( m1, m2, m3, m4) = IntecGTO_ERI( SYS[m1], SYS[m2], SYS[m3], SYS[m4] );
 						// ERI exchange
 						ERI( m2, m1, m3, m4) = ERI( m1, m2, m3, m4);
 						ERI( m1, m2, m4, m3) = ERI( m1, m2, m3, m4);
@@ -200,11 +208,11 @@ int SCFer::calc_SHERI(System &SYS, MatrixXd &S, MatrixXd &H, Tensor4D &ERI)
 	this->report << "Inte   H_AO: " << endl << H << endl << endl;
 	this->report << "Inte ERI_AO: " << endl << ERI << endl << endl;
 	// for test
-	/*  
+	 
 	cout << "Inte   S_AO: " << endl << S << endl << endl;	
 	cout << "Inte   H_AO: " << endl << H << endl << endl;
 	cout << "Inte ERI_AO: " << endl << ERI << endl << endl;
-	*/
+	
 	return 0;
 }
 
@@ -361,7 +369,7 @@ int SCFer::calc_PE()
 	this->E = get_NE();
 	for(int k=0; k<this->nocc; k++)
 	{
-		this->E += this->eigen_E(list[k]);// + (this->eigen_P*this->eigen_H)(list[k],list[k]);
+		this->E += this->eigen_E(this->list[k]) ;//+ (this->eigen_P*this->eigen_H)(list[k],list[k]);
 	}
 	this->E += (this->eigen_P*this->eigen_H).trace(); // trace only on ocuppied ??
 	this->report_SCF();
@@ -406,7 +414,9 @@ int SCFer::check_Loop(int cnt)
 		this->do_loop = false;
 	}
 	cout << "# SCF LOOP RESULT" << cnt << endl << endl;
-	cout << "    E: " << this->E << "    " << "Convergence: " << E_old-this->E << endl << endl;
+	cout << "    Es: " <<  endl << this->eigen_E << endl;
+	cout << "    ls: "; for(int i=0; i<this->nocc; i++) cout << " " << this->list[i]; cout << endl;
+	cout << "    E : " << this->E << "    " << "Convergence: " << E_old-this->E << endl << endl;
 	this->E_old = this->E;
 	return 0;
 }
