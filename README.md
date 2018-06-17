@@ -1,24 +1,9 @@
 # 2018QC-Project-Ab-initio-wavefunction-program
 
-### Current Concerns
+"It was at this moment, he knew, he fucked up."
 
-- [ ] Finish the codes in `src\molecule.cc` 
-- [ ] Finish the codes in `src\basic_SCF.cc` 
-- [ ] Define integration library and BasisSet classes 
-- [ ] Update makefiles
-- [ ] Write documents, reformat comments to make them compatible with Doxygen / Sphinx
+## Current Issues
 
-### TODO
-
-- [ ] Define more sophisticated input file formats
-- [ ] Define more sophisticated output file formats
-- [ ] Automatic testing scripts
-- [x] Constants and default parameters lists
-- [ ] (Compatibility) Gaussian input files (.gjf) parser
-- [ ] main program
-
-### Done
-
-- [x] Define functions in H-F calculation
-- [x] Define input file formats
-- [x] Define output file formats
+- [ ] Optimizing SCF so it converges
+- [ ] CISD Implementation (D. Teng, Z. Zhi, Z. R. Qiao)
+- [ ] Documents describing the procedure
