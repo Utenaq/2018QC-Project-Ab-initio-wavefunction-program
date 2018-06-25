@@ -6,6 +6,8 @@
 #include <fstream>
 #include <cmath>
 
+#include <vector>
+
 #include "Eigen/Dense"
 #include <unsupported/Eigen/CXX11/Tensor>
 
@@ -412,6 +414,26 @@ int SCFer::check_Loop(int cnt)
 	if( abs(this->E - this->E_old) < this->threshold && this->m_Diff(this->eigen_P,this->eigen_P_old) )
 	{
 		this->do_loop = false;
+		
+		// Load poems to output from file
+		std::ifstream infile("attachment.dat");
+		vector<string> vPoem;
+		
+		// Reading and spliting
+		string temp;
+		string verse;
+		while(std::getline(infile, temp)){
+			if (temp[0] == '@'){
+				vPoem.push_back(verse);
+				verse = "";
+			} // If one verse ends
+			verse += (temp + "\n");
+		}
+		
+		// Choose random one and output as bottom lines
+		int nRand = rand() % vPoem.length();
+		cout << vPoem[nRand] << std::endl;
+		
 	}
 	cout << "# SCF LOOP RESULT" << cnt << endl << endl;
 	cout << "    Es: " <<  endl << this->eigen_E << endl;
