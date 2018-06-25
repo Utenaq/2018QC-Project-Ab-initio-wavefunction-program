@@ -26,49 +26,34 @@ the closed shell of s type Hatree-Fock calculation is fine. But it can not treat
 now or UHF equation. Later will add them.  
 	    
 		
-		// you can run the following command under ./src
+you can run the following command under ./src
 		
-		/*
-		list of commands of some test examples
-		
-		| commands                          | what the procedure does                                       |
-		|-----------------------------------|---------------------------------------------------------------|
-		| ./main -h					        | get help information                                          |
-		| ./main -d                         | run HeH+ default test. (see details in ../test/HeH.gjf)       |
-		| ./main -f ../test/HeH.gjf         | run HeH+ test. (see details in ../test/HeH.gjf)               |
-		| ./main -f ../test/H2.gjf          | run H2 test. (see details in ../test/H2.gjf)                  |
-		| ./main -f ../test/H.gjf           | run H test. (see details in ../test/H.gjf)                    |
-		| ./main -f ../test/H4_D4.gjf       | run H4 with D4 symmetry (see details in ../test/H4_D4.gjf)    |
-		| ./main -f ../test/H4_nosym.gif    | run H4 without symmetry (see details in ../test/H4_nosym.gjf) |
-		
-		
-		list of results
-			    
-		|test   |result                     | remarks                                                       |  
-		|-------|---------------------------|---------------------------------------------------------------|  
-		| H2    | consistent with Gauss     | closed-shell RHF works well                                   |  
-		| HeH+  | consistent with Gauss     | closed-shell RHF works well                                   |  
-		| H     | incorrect                 | open-shell RHF / UHF needed[^a]                                |  
-		| CH4   | (no result)               | integration fucntion of s-p/p-p type is needed                |  
-		| H4    | incorrect                 | open shell & degenerate problem[^b]                            |  
-		
-		
-		[^a]: the test of H, is not correct.(though we not we just diagonize the H matrix to obtain the correct 
-		result, but the RHF equation of closed shell is not fit to treat it. It's need open-shell RHF SCF method.)  
-		[^b]: the test of H4, has convergence problem with oscillation ! It is not a reason to need DIIS, but a 
-		degenerate problem.(or to say, there are degenerate orbitals in the molecule (H4) ! So the occupation of 
-		orbitals should be treat more carefully! P.S., according to Jahn-Teller theorem, non-linear molecule of 
-		some symmetry must be degenerate, this means the H4 molecule of D4 symmetry must be openshell and 
-		degenegrate!). If we distory D4 symmetry to calculate H4 again, we will find it meets convergence!  
-		
-		*/ 
 
+list of commands of some test examples
+
+| commands                          | what the procedure does                                       |
+|-----------------------------------|---------------------------------------------------------------|
+| ./main -h					        | get help information                                          |
+| ./main -d                         | run HeH+ default test. (see details in ../test/HeH.gjf)       |
+| ./main -f ../test/HeH.gjf         | run HeH+ test. (see details in ../test/HeH.gjf)               |
+| ./main -f ../test/H2.gjf          | run H2 test. (see details in ../test/H2.gjf)                  |
+| ./main -f ../test/H.gjf           | run H test. (see details in ../test/H.gjf)                    |
+| ./main -f ../test/H4.gjf          | run H4 with D4 symmetry (see details in ../test/H4.gjf)       |
+| ./main -f ../test/CH4.gif         | run CH4 (see details in ../test/CH4.gjf)                      |
+		
+		
+list of results
+	    
+|test   |result                     | remarks                                                       |  
+|-------|---------------------------|---------------------------------------------------------------|  
+| H2    | consistent with Gauss     | closed-shell RHF works well                                   |  
+| HeH+  | consistent with Gauss     | closed-shell RHF works well                                   |  
+| H     | incorrect                 | open-shell RHF / UHF needed[^a]                               |  
+| CH4   | (no result)               | integration fucntion of s-p/p-p type is needed                |  
+| H4    | incorrect                 | open shell & degenerate problem[^b]                           |  
 
   
 # files structure
-## new structure  
-new structure with few files, mainly contains six files, and move them a copy to tyro directory now. From them,
- it's easy to understand how does this procedure work!  
 #### basic_Const.h
 just as the old file structure.  
 * basic math and physics constants, mainly a copy from Pysi4 with little modification.  
@@ -95,7 +80,7 @@ _double x_
 _double y_  
 _double z_  
   
-  
+
 > __with methods__  
 >>
 _double norm()_  
@@ -246,7 +231,8 @@ _\[\]_
   
   
 #### illustration of basic_Global.h
-			    
+
+				    
 			#################################################################################  
 			#                                                                               #  
 			#       [ note: ----- inherit, ===== list, =-=-= inherit & list ]               #  
@@ -258,7 +244,7 @@ _\[\]_
 			#                         ' Atom  =-=-=-=-= Molecule =-=-=-= System             #  
 			#                                                                               #  
 			#################################################################################  
-	    
+    
   
 #### basic_Parser.h
 a parser of reading input file.  
