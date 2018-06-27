@@ -1,6 +1,6 @@
-# Heisenberg Readme
-
+# Tutorial of program ver.01
 ##### 贡献人： 贺麒霖， 资治， 刘昊明， 腾达， 乔卓然， 贺鑫  
+##### 来自于小组合作的Uteleq的私人github项目2018QC-Project-Ab-initio-wavefunction-program，你也可以在XShinHe公共的项目中找到Heisenberg，两者是一致的。
 -----
 ## 编译和使用方法
 ### 编译方法
