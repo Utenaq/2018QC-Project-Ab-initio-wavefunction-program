@@ -411,6 +411,12 @@ double SCFer::get_NE()
 
 int SCFer::check_Loop(int cnt)
 {
+	// output the result at each loop
+	cout << "# SCF LOOP RESULT" << cnt << endl << endl;
+	cout << "    Energy_MO values: " <<  endl << this->eigen_E << endl;
+	cout << "    Occupied indexes: "; for(int i=0; i<this->nocc; i++) cout << " " << this->list[i]; cout << endl;
+	cout << "    Energy_Total : " << this->E << "    " << "Convergence: " << E_old-this->E << endl << endl;
+	//
 	if( abs(this->E - this->E_old) < this->threshold && this->m_Diff(this->eigen_P,this->eigen_P_old) )
 	{
 		this->do_loop = false;
@@ -425,20 +431,19 @@ int SCFer::check_Loop(int cnt)
 		while(std::getline(infile, temp)){
 			if (temp[0] == '@'){
 				vPoem.push_back(verse);
+
 				verse = "";
 			} // If one verse ends
 			verse += (temp + "\n");
 		}
+		vPoem.push_back(verse);
 		
 		// Choose random one and output as bottom lines
-		int nRand = rand() % vPoem.length();
+		srand((unsigned)time(NULL));
+		int nRand =  rand() % vPoem.size();
 		cout << vPoem[nRand] << std::endl;
 		
 	}
-	cout << "# SCF LOOP RESULT" << cnt << endl << endl;
-	cout << "    Es: " <<  endl << this->eigen_E << endl;
-	cout << "    ls: "; for(int i=0; i<this->nocc; i++) cout << " " << this->list[i]; cout << endl;
-	cout << "    E : " << this->E << "    " << "Convergence: " << E_old-this->E << endl << endl;
 	this->E_old = this->E;
 	return 0;
 }
